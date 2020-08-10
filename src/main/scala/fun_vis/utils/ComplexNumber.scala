@@ -43,12 +43,3 @@ case class ComplexNumber(r: Double, i: Double) {
     ComplexNumber(r * mult.round / mult, i * mult.round / mult)
   }
 }
-
-import fun_vis.applets.NewtonsMethod.newtonsMethod
-
-object Main extends App {
-  val z = ComplexNumber(0, 1)
-  val f = (z: ComplexNumber) => z.pow(3) - 1
-  val fPrime = (z: ComplexNumber) => z.pow(2) * 3
-  println(newtonsMethod(z, f, fPrime))
-}

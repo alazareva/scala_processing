@@ -5,26 +5,26 @@ import fun_vis.functions.SpatialTransforms.{MapMask, rotate, scale, swirl, trans
 import fun_vis.Mask._
 import fun_vis.Types.{MaskImage, Value}
 import fun_vis.{Point, Polar, Vector}
-import processing.core.PConstants
+import math.{Pi, floor, abs}
 
 // example mask image definitions
 object MaskFunctions {
 
-  val vstrip: MaskImage = pt => Math.abs(pt.x) <= 0.5
+  val vstrip: MaskImage = pt => abs(pt.x) <= 0.5
 
-  val hstrip: MaskImage = pt => Math.abs(pt.y) <= 0.5
+  val hstrip: MaskImage = pt => abs(pt.y) <= 0.5
 
-  val checker: MaskImage = pt => (Math.floor(pt.x) + Math.floor(pt.y)).toInt % 2 == 0
+  val checker: MaskImage = pt => (floor(pt.x) + floor(pt.y)).toInt % 2 == 0
 
-  def checkerOf(i: Value): MaskImage = pt => (Math.floor(pt.x * i) + Math.floor(pt.y * i)).toInt % 2 == 0
+  def checkerOf(i: Value): MaskImage = pt => (floor(pt.x * i) + floor(pt.y * i)).toInt % 2 == 0
 
   val altRings: MaskImage =
-    pt => Math.floor(distFromOrigin(pt)).toInt % 2 == 0
+    pt => floor(distFromOrigin(pt)).toInt % 2 == 0
 
-  def altRingsOf(i: Int): MaskImage = pt => Math.floor(distFromOrigin(pt) * 0.2 * i).toInt % 2 == 0
+  def altRingsOf(i: Int): MaskImage = pt => floor(distFromOrigin(pt) * 0.2 * i).toInt % 2 == 0
 
   val polarChecker: MaskImage = {
-    val sc = (plr: Polar) => Point(plr.rho, plr.theta * (10 / PConstants.PI))
+    val sc = (plr: Polar) => Point(plr.rho, plr.theta * (10 / Pi))
     checker compose sc compose pointToPolar
   }
 
@@ -47,7 +47,7 @@ object MaskFunctions {
 
   val radReg: Int => MaskImage =
     n => {
-      val test = (plr: Polar) => Math.floor(plr.theta * (n / PConstants.PI)).toInt % 2 == 0
+      val test = (plr: Polar) => floor(plr.theta * (n / Pi)).toInt % 2 == 0
       test compose pointToPolar
     }
 
@@ -72,7 +72,7 @@ object MaskFunctions {
   val inverseAsterisk: MaskImage = xorMask(asterisk)(fullMask)
 
   val recordShape: MaskImage = {
-    val fun = (plr: Polar) => Polar(math.abs(plr.rho - 1.5), plr.theta)
+    val fun = (plr: Polar) => Polar(abs(plr.rho - 1.5), plr.theta)
     udisk compose polarTransformToPoint(fun)
   }
 
