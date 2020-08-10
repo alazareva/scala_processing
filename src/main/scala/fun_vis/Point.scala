@@ -9,10 +9,9 @@ case class Point(x: Double, y: Double)
 case class Polar(rho: Double, theta: Double)
 
 
-
-
 case class Vector(x: Float, y: Float) {
   def unary_- = Vector(-x, -y)
+
   def inverse = Vector(1 / x, 1 / y)
 }
 

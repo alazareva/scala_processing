@@ -16,7 +16,7 @@ object MaskFunctions {
 
   val checker: MaskImage = pt => (Math.floor(pt.x) + Math.floor(pt.y)).toInt % 2 == 0
 
-  def checkerOf(i: Value): MaskImage = pt => (Math.floor(pt.x*i) + Math.floor(pt.y*i)).toInt % 2 == 0
+  def checkerOf(i: Value): MaskImage = pt => (Math.floor(pt.x * i) + Math.floor(pt.y * i)).toInt % 2 == 0
 
   val altRings: MaskImage =
     pt => Math.floor(distFromOrigin(pt)).toInt % 2 == 0

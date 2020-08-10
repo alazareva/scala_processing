@@ -49,6 +49,7 @@ object Color {
 }
 
 case class RGBColor(r: Value, g: Value, b: Value, a: Value = 100) extends Color
+
 case class HSBColor(h: Value, s: Value, b: Value, a: Value = 100) extends Color
 
 object ColorUtils {

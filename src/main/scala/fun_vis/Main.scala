@@ -12,7 +12,6 @@ import processing.core.{PApplet, PConstants}
 import scala.annotation.tailrec
 
 
-
 sealed trait ColorMode {
   def set(applet: PApplet): Unit
 }
@@ -32,11 +31,12 @@ object SketchFunctions {
 
   def mandelbrot(p: Point, maxIteration: Int = 1000, escape: Int = 2): Int = {
     @tailrec
-    def rec(pt: Point, ip: Point, count: Int): Int={
-      if (((pt.x*pt.x+pt.y*pt.y) >= escape) || count >= maxIteration) count
-      else rec(Point(pt.x*pt.x-pt.y*pt.y+ip.x, 2*pt.x*pt.y+ip.y),ip, count+1)
+    def rec(pt: Point, ip: Point, count: Int): Int = {
+      if (((pt.x * pt.x + pt.y * pt.y) >= escape) || count >= maxIteration) count
+      else rec(Point(pt.x * pt.x - pt.y * pt.y + ip.x, 2 * pt.x * pt.y + ip.y), ip, count + 1)
     }
-    rec(Point(0,0) , p, 0)
+
+    rec(Point(0, 0), p, 0)
   }
 }
 
@@ -65,13 +65,13 @@ class Display extends PApplet {
     val maxIterations = 1000
     val colorFunction: ColorImage = p => {
       val iterations = SketchFunctions.mandelbrot(scalePoint(Vector(0.7f, 0.7f))(p), maxIterations)
-      val scalePolarDistance = (v: Value) =>  v * 300.0f + frameCount * 20
-      val rainbow = grayToHSB(polarDist andThen scalePolarDistance)
+      val scalePolarDistance = (v: Value) => v * 300.0f + frameCount * 20
+      val rainbow = grayToHSB(polarDist andThen scalePolarDistance)(p)
       val mask = xorMask(checkerOf(angle(p)))(altRingsOf(frameCount % 50 + 2))
       ColorUtils.selectColor(
         mask(p),
         selectColor(iterations == maxIterations, Color.black, SketchFunctions.pink),
-        selectColor(iterations == maxIterations, Color.white, rainbow(p))
+        selectColor(iterations == maxIterations, Color.white, rainbow)
       )
     }
     pCanvas.foreach(colorFunction)
@@ -79,7 +79,7 @@ class Display extends PApplet {
 }
 
 object Display extends PApplet {
-  def main(args:Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
     PApplet.main("fun_vis.Display")
   }
 }

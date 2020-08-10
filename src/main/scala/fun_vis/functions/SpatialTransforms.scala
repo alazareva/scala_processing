@@ -20,5 +20,4 @@ object SpatialTransforms {
   def rotate[A](d: Double): MapImage[A] = im => p => im(rotatePoint(-d)(p))
 
   def swirl[A](d: Double): MapImage[A] = im => p => im(swirlPoint(-d)(p))
-
 }
