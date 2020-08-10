@@ -1,7 +1,9 @@
 package fun_vis
 
 import fun_vis.functions.SpatialTransforms.{TransformPoint, TransformPolar}
-import math.{Pi, sin, atan2, cos, sqrt, pow}
+import fun_vis.utils.ComplexNumber
+
+import math.{Pi, atan2, cos, pow, sin, sqrt}
 
 // a point in the cartesian coordinate system
 case class Point(x: Double, y: Double)
@@ -26,6 +28,8 @@ object PointUtils {
   def pointToPolar(pt: Point): Polar = Polar(distFromOrigin(pt),atan2(pt.y, pt.x))
 
   def polarToPoint(plr: Polar): Point = Point(plr.rho * cos(plr.theta), plr.rho * sin(plr.theta))
+
+  def pointToComplexNumber(p: Point): ComplexNumber = ComplexNumber(p.x, p.y)
 
   def translatePoint(v: Vector): TransformPoint = p => Point(p.x + v.x, p.y + v.y)
 

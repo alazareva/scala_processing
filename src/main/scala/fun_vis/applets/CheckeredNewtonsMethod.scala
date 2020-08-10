@@ -1,7 +1,7 @@
 package fun_vis.applets
 
 import fun_vis.ColorUtils.selectColor
-import fun_vis.Types.ColorImage
+import fun_vis.Types.{ColorImage, GrayImage}
 import fun_vis._
 import fun_vis.functions.Fractals
 import fun_vis.functions.GrayFunctions.polarDist
@@ -36,7 +36,6 @@ class CheckeredNewtonsMethod extends PApplet {
       val iterations = Fractals.newtonsMethod(ComplexNumber(p.x, p.y), f, fPrime).iterations
       val rainbow = (polarDist(p) * 500) % 360
       selectColor(checker(p), HSBColor(rainbow, 0, 100 - iterations), HSBColor(rainbow, 0, iterations))
-
     }
     pCanvas.foreach(imageFn)
   }
