@@ -1,8 +1,20 @@
 package fun_vis
 
 import fun_vis.Types._
-import processing.core.PApplet
+import processing.core.{PApplet, PConstants}
 
+
+sealed trait ColorMode {
+  def set(applet: PApplet): Unit
+}
+
+case object RGB extends ColorMode {
+  def set(applet: PApplet): Unit = applet.colorMode(PConstants.RGB, 100)
+}
+
+case object HSB extends ColorMode {
+  def set(applet: PApplet): Unit = applet.colorMode(PConstants.HSB, 360, 100, 100, 100)
+}
 
 case class Origin(x: Int, y: Int)
 

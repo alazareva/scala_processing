@@ -1,31 +1,19 @@
-package fun_vis
+package fun_vis.applets
 
-import fun_vis.Mask._
-import fun_vis.functions.ColorFunctions._
-import fun_vis.functions.GrayFunctions._
-import fun_vis.functions.MaskFunctions._
-import fun_vis.PointUtils._
-import fun_vis.ColorUtils._
-import fun_vis.Types._
+import fun_vis.ColorUtils.selectColor
+import fun_vis.Mask.xorMask
+import fun_vis.PointUtils.scalePoint
+import fun_vis.Types.{ColorImage, Value}
+import fun_vis.{Canvas, Color, ColorMode, ColorUtils, Extent, HSB, HSBColor, Origin, Point, ProcessingCanvas, Vector}
+import fun_vis.functions.ColorFunctions.grayToHSB
+import fun_vis.functions.GrayFunctions.{angle, polarDist}
+import fun_vis.functions.MaskFunctions.{altRingsOf, checkerOf}
 import processing.core.{PApplet, PConstants}
 
 import scala.annotation.tailrec
 
 
-sealed trait ColorMode {
-  def set(applet: PApplet): Unit
-}
-
-case object RGB extends ColorMode {
-  def set(applet: PApplet): Unit = applet.colorMode(PConstants.RGB, 100)
-}
-
-case object HSB extends ColorMode {
-  def set(applet: PApplet): Unit = applet.colorMode(PConstants.HSB, 360, 100, 100, 100)
-}
-
-
-object SketchFunctions {
+object RainbowMandelbrot {
 
   val pink = HSBColor(330, 59, 100)
 
@@ -41,7 +29,7 @@ object SketchFunctions {
 }
 
 
-class Display extends PApplet {
+class RainbowMandelbrot extends PApplet {
 
   implicit val colorMode: ColorMode = HSB
 
@@ -64,13 +52,13 @@ class Display extends PApplet {
   override def draw(): Unit = {
     val maxIterations = 1000
     val colorFunction: ColorImage = p => {
-      val iterations = SketchFunctions.mandelbrot(scalePoint(Vector(0.7f, 0.7f))(p), maxIterations)
+      val iterations = RainbowMandelbrot.mandelbrot(scalePoint(Vector(0.7f, 0.7f))(p), maxIterations)
       val scalePolarDistance = (v: Value) => v * 300.0f + frameCount * 20
       val rainbow = grayToHSB(polarDist andThen scalePolarDistance)(p)
       val mask = xorMask(checkerOf(angle(p)))(altRingsOf(frameCount % 50 + 2))
       ColorUtils.selectColor(
         mask(p),
-        selectColor(iterations == maxIterations, Color.black, SketchFunctions.pink),
+        selectColor(iterations == maxIterations, Color.black, RainbowMandelbrot.pink),
         selectColor(iterations == maxIterations, Color.white, rainbow)
       )
     }
@@ -78,8 +66,8 @@ class Display extends PApplet {
   }
 }
 
-object Display extends PApplet {
+object RainbowMandlbrot extends PApplet {
   def main(args: Array[String]): Unit = {
-    PApplet.main("fun_vis.Display")
+    PApplet.main("fun_vis.applets.RainbowMandelbrot")
   }
 }
