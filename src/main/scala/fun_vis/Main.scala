@@ -5,7 +5,7 @@ import fun_vis.functions.ColorFunctions._
 import fun_vis.functions.GrayFunctions._
 import fun_vis.functions.MaskFunctions._
 import fun_vis.PointUtils._
-import fun_vis.Utils._
+import fun_vis.ColorUtils._
 import fun_vis.Types._
 import processing.core.{PApplet, PConstants}
 
@@ -65,16 +65,17 @@ class Display extends PApplet {
     val maxIterations = 1000
     val colorFunction: ColorImage = p => {
       val iterations = SketchFunctions.mandelbrot(scalePoint(Vector(0.7f, 0.7f))(p), maxIterations)
-      val scaleValue = (v: Value) =>  v * 300.0f + frameCount * 20
-      val hue = grayToHSB(polarDist andThen scaleValue)
-      val selectColor1 = lift0(ColorUtils.selectColor(iterations == maxIterations, Color.black, SketchFunctions.pink))
-      val selectColor2 = lift0(ColorUtils.selectColor(iterations == maxIterations, Color.white, hue(p)))
-      val fn = selectColorFn(xorMask(checkerOf(angle(p)))(altRingsOf(frameCount % 50 + 2)))(selectColor1)(selectColor2)
-      fn(p)
+      val scalePolarDistance = (v: Value) =>  v * 300.0f + frameCount * 20
+      val rainbow = grayToHSB(polarDist andThen scalePolarDistance)
+      val mask = xorMask(checkerOf(angle(p)))(altRingsOf(frameCount % 50 + 2))
+      ColorUtils.selectColor(
+        mask(p),
+        selectColor(iterations == maxIterations, Color.black, SketchFunctions.pink),
+        selectColor(iterations == maxIterations, Color.white, rainbow(p))
+      )
     }
     pCanvas.foreach(colorFunction)
   }
-
 }
 
 object Display extends PApplet {
