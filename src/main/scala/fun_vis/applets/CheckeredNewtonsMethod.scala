@@ -34,10 +34,10 @@ class CheckeredNewtonsMethod extends PApplet {
     val fPrime = (z: ComplexNumber) => (z.pow(11) * 12) + (z.pow(3) * 40)
     val imageFn: ColorImage = p => {
       val iterations = Fractals.newtonsMethod(ComplexNumber(p.x, p.y), f, fPrime).iterations
-      val rainbow = (polarDist(p) * 500) % 360
-      selectColor(checker(p), HSBColor(rainbow, 0, 100 - iterations), HSBColor(rainbow, 0, iterations))
+      selectColor(checker(p), HSBColor(0, 0, 100 - iterations), HSBColor(0, 0, iterations))
     }
     pCanvas.foreach(imageFn)
+
   }
 }
 
