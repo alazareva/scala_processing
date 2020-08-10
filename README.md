@@ -7,7 +7,11 @@ can start to create complex animated images.
 ### Example Applets
 [RainbowMandelbrot](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/RainbowMandelbrot.scala)
 
-![example](https://github.com/alazareva/scala_processing/blob/master/images/small_rainbow_gif.gif)
+![example1](https://github.com/alazareva/scala_processing/blob/master/images/small_rainbow_gif.gif)
+
+[CheckeredNewtonsMethod](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/CheckeredNewtonsMethod.scala)
+
+![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg)
 
 ### Usage
 In order to run the code you'll need to add Processing's core.jar library to your classpath.

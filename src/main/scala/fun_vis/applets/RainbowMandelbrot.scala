@@ -4,29 +4,12 @@ import fun_vis.ColorUtils.selectColor
 import fun_vis.Mask.xorMask
 import fun_vis.PointUtils.scalePoint
 import fun_vis.Types.{ColorImage, Value}
-import fun_vis.{Canvas, Color, ColorMode, ColorUtils, Extent, HSB, HSBColor, Origin, Point, ProcessingCanvas, Vector}
+import fun_vis.{Canvas, Color, ColorMode, ColorUtils, Extent, HSB, HSBColor, ProcessingCanvas, Vector}
 import fun_vis.functions.ColorFunctions.grayToHSB
+import fun_vis.functions.Fractals
 import fun_vis.functions.GrayFunctions.{angle, polarDist}
 import fun_vis.functions.MaskFunctions.{altRingsOf, checkerOf}
 import processing.core.{PApplet, PConstants}
-
-import scala.annotation.tailrec
-
-
-object RainbowMandelbrot {
-
-  val pink = HSBColor(330, 59, 100)
-
-  def mandelbrot(p: Point, maxIteration: Int = 1000, escape: Int = 2): Int = {
-    @tailrec
-    def rec(pt: Point, ip: Point, count: Int): Int = {
-      if (((pt.x * pt.x + pt.y * pt.y) >= escape) || count >= maxIteration) count
-      else rec(Point(pt.x * pt.x - pt.y * pt.y + ip.x, 2 * pt.x * pt.y + ip.y), ip, count + 1)
-    }
-
-    rec(Point(0, 0), p, 0)
-  }
-}
 
 
 class RainbowMandelbrot extends PApplet {
@@ -40,8 +23,7 @@ class RainbowMandelbrot extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(800, 500),
-    Extent(5, 3),
-    Origin(400, 250),
+    Extent(-3, 2, -1.5f, 1.5f),
     this,
   )
 
@@ -52,7 +34,7 @@ class RainbowMandelbrot extends PApplet {
   override def draw(): Unit = {
     val maxIterations = 1000
     val colorFunction: ColorImage = p => {
-      val iterations = RainbowMandelbrot.mandelbrot(scalePoint(Vector(0.7f, 0.7f))(p), maxIterations)
+      val iterations = Fractals.mandelbrot(maxIterations=maxIterations)(scalePoint(Vector(0.7f, 0.7f))(p))
       val scalePolarDistance = (v: Value) => v * 300.0f + frameCount * 20
       val rainbow = grayToHSB(polarDist andThen scalePolarDistance)(p)
       val mask = xorMask(checkerOf(angle(p)))(altRingsOf(frameCount % 50 + 2))
@@ -66,7 +48,10 @@ class RainbowMandelbrot extends PApplet {
   }
 }
 
-object RainbowMandlbrot extends PApplet {
+object RainbowMandelbrot extends PApplet {
+
+  val pink = HSBColor(330, 59, 100)
+
   def main(args: Array[String]): Unit = {
     PApplet.main("fun_vis.applets.RainbowMandelbrot")
   }
