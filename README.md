@@ -11,7 +11,7 @@ can start to create complex animated images.
 
 [CheckeredNewtonsMethod](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/CheckeredNewtonsMethod.scala)
 
-![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg)
+![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg = 600x400)
 
 ### Usage
 In order to run the code you'll need to add Processing's core.jar library to your classpath.
