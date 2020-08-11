@@ -5,13 +5,21 @@ The idea is to treat an image as a function from a pixel => color. By composing 
 can start to create complex animated images.
 
 ### Example Applets
+[CheckeredNewtonsMethod](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/CheckeredNewtonsMethod.scala)
+
+![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg)
+
+
+[DomainColoring](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/DomainColoring.scala)
+
+![example3](https://github.com/alazareva/scala_processing/blob/master/images/domain-000006.png)
+
+
 [RainbowMandelbrot](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/RainbowMandelbrot.scala)
 
 ![example1](https://github.com/alazareva/scala_processing/blob/master/images/small_rainbow_gif.gif)
 
-[CheckeredNewtonsMethod](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/CheckeredNewtonsMethod.scala)
 
-![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg)
 
 ### Usage
 In order to run the code you'll need to add Processing's core.jar library to your classpath.
