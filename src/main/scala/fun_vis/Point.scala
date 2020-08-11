@@ -25,7 +25,7 @@ object PointUtils {
     pow(pt.x, 2) + pow(pt.y, 2)
   ).toFloat
 
-  def pointToPolar(pt: Point): Polar = Polar(distFromOrigin(pt),atan2(pt.y, pt.x))
+  def pointToPolar(pt: Point): Polar = Polar(distFromOrigin(pt), atan2(pt.y, pt.x))
 
   def polarToPoint(plr: Polar): Point = Point(plr.rho * cos(plr.theta), plr.rho * sin(plr.theta))
 

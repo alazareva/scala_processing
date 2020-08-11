@@ -42,4 +42,8 @@ case class ComplexNumber(r: Double, i: Double) {
     val mult = Math.pow(10, dec)
     ComplexNumber(r * mult.round / mult, i * mult.round / mult)
   }
+
+  val isInfinity: Boolean = abs.isInfinity
+
+  val isNan: Boolean = abs.isNaN
 }
