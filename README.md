@@ -10,6 +10,16 @@ can start to create complex animated images.
 ![example2](https://github.com/alazareva/scala_processing/blob/master/images/0002-checkers.jpeg)
 
 
+[PhoenixFractals](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/PhoenixFractals.scala)
+
+![example4](https://github.com/alazareva/scala_processing/blob/master/images/phoenix-1.png)
+
+
+[JuliaSet](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/JuliaSet.scala)
+
+![example5](https://github.com/alazareva/scala_processing/blob/master/images/julia4-000001.png)
+
+
 [DomainColoring](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/DomainColoring.scala)
 
 ![example3](https://github.com/alazareva/scala_processing/blob/master/images/domain-000006.png)

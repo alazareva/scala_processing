@@ -38,4 +38,30 @@ object Fractals {
     rec(Point(0, 0), p, 0)
   }
 
+  def julia(initialZ: ComplexNumber,
+            f: ComplexNumber => ComplexNumber,
+            maxIterations: Int=1000,
+            maxZ: Int=10,
+           ): Int =  {
+
+    @tailrec
+    def rec(z: ComplexNumber, iteration: Int): Int = {
+      if (z.abs >= maxZ || iteration > maxIterations) iteration
+      else rec(f(z), iteration + 1)
+    }
+    rec(initialZ, 0)
+  }
+
+  def phoenix(initialZ: ComplexNumber,
+              f: (ComplexNumber, ComplexNumber) => ComplexNumber,
+              maxIterations: Int=100,
+              maxZ: Int=10,
+             ): Int =  {
+
+    def rec(z1: ComplexNumber, z2: ComplexNumber, iteration: Int): Int = {
+      if (z1.abs >= maxZ || iteration > maxIterations) iteration
+      else rec(f(z1, z2), z1, iteration + 1)
+    }
+    rec(initialZ, initialZ, 0)
+  }
 }
