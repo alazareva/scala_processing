@@ -16,9 +16,19 @@ case object HSB extends ColorMode {
   def set(applet: PApplet): Unit = applet.colorMode(PConstants.HSB, 360, 100, 100, 100)
 }
 
-case class Extent(xStart: Float, xEnd: Float, yStart: Float, yEnd: Float)
+case class Extent(xStart: Float, xEnd: Float, yStart: Float, yEnd: Float){
+  def *(m: Float): Extent = Extent(xStart * m, xEnd * m, yStart * m, yEnd * m)
+  def +(v: Vector): Extent = Extent(xStart + v.x, xEnd + v.x, yStart + v.y, yEnd + v.y)
+}
 
-case class Canvas(width: Int, height: Int)
+object Extent {
+  def apply(w: Float, h: Float): Extent = Extent(-w, w, -h, h)
+}
+
+case class Canvas(width: Int, height: Int) {
+  def /(d: Float):Canvas = Canvas((width / d).toInt, (height / d).toInt)
+  def *(d: Float):Canvas = Canvas((width * d).toInt, (height * d).toInt)
+}
 
 case class ProcessingCanvas(canvas: Canvas, extent: Extent, applet: PApplet) {
 
