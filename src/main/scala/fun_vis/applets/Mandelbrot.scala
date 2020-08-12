@@ -5,7 +5,7 @@ import fun_vis.ColorUtils.selectColor
 import fun_vis.Mask.xorMask
 import fun_vis.PointUtils.scalePoint
 import fun_vis.Types.{ColorImage, Value}
-import fun_vis.{Canvas, Color, ColorMode, ColorUtils, Extent, HSB, HSBColor, ProcessingCanvas, Vector}
+import fun_vis.{Canvas, Color, ColorMode, ColorUtils, CustomExtent, Extent, HSB, HSBColor, ProcessingCanvas, Vector}
 import fun_vis.functions.Fractals
 import fun_vis.utils.ComplexNumber
 import processing.core.{PApplet, PConstants}
@@ -23,7 +23,7 @@ class Mandelbrot extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(500, 500) / 3,
-    Extent(1.5f, 1.5f) + Vector(-0.6f, 0),
+    CustomExtent(1.5f, 1.5f) + Vector(-0.6f, 0),
     this,
   )
 

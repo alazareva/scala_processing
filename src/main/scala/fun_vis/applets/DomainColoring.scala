@@ -19,7 +19,7 @@ class DomainColoring extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(1000, 600),
-    Extent(-3, 3, -2, 2),
+    CustomExtent(-3, 3, -2, 2),
     this,
   )
 
