@@ -18,7 +18,7 @@ class JuliaSet extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(700, 700) * 0.8f,
-    (Extent(1.5f, 1.5f) + Vector(-0.5f, -0.5f)) * 0.4f,
+    (CustomExtent(1.5f, 1.5f) + Vector(-0.5f, -0.5f)) * 0.4f,
     this,
   )
 

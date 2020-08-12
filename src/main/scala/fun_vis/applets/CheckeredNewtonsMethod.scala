@@ -21,7 +21,7 @@ class CheckeredNewtonsMethod extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(800, 600),
-    Extent(-1, 1, -1, 1),
+    CustomExtent(-1, 1, -1, 1),
     this,
   )
 

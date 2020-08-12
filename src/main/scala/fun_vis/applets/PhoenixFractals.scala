@@ -1,7 +1,7 @@
 package fun_vis.applets
 
 import fun_vis.functions.Fractals
-import fun_vis.{Canvas, ColorMode, Extent, HSB, HSBColor, Point, PointUtils, ProcessingCanvas, Vector}
+import fun_vis.{Canvas, ColorMode, CustomExtent, Extent, HSB, HSBColor, Point, PointUtils, ProcessingCanvas, Vector}
 import fun_vis.utils.ComplexNumber
 import processing.core.{PApplet, PConstants}
 import processing.core.PApplet.{map, radians}
@@ -18,7 +18,7 @@ class PhoenixFractals extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(1200, 700),
-    Extent(-1.2f * 0.8f, 1.2f * 0.8f, -1.0f* 0.7f, 0.6f * 0.7f) * 0.08f + Vector(-0.25f, -0.2f),
+    CustomExtent(-1.2f * 0.8f, 1.2f * 0.8f, -1.0f* 0.7f, 0.6f * 0.7f) * 0.08f + Vector(-0.25f, -0.2f),
     this,
   )
 
