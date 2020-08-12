@@ -23,7 +23,7 @@ class Mandelbrot extends PApplet {
 
   val pCanvas = ProcessingCanvas(
     Canvas(500, 500) / 3,
-    Extent(1.5f, 1.5f),
+    Extent(1.5f, 1.5f) + Vector(-0.6f, 0),
     this,
   )
 
@@ -37,7 +37,8 @@ class Mandelbrot extends PApplet {
       val f = (c1: ComplexNumber, c2: ComplexNumber) => (c1 * c1) + c2
       val iterations = Fractals.mandelbrot(maxIterations=maxIterations)(ComplexNumber(p.x, p.y), f)
       val b = map(iterations, 0, maxIterations, 0, 100)
-      selectColor(iterations % 2 == 0, HSBColor(0, 0, b), HSBColor(0, 0, 100 - b))
+      val h = map(iterations, 0, maxIterations, 0, 20)
+      selectColor(iterations % 2 == 0, HSBColor(120 + h, 50, b), HSBColor(200 + h, 50, 100 - b))
     }
     pCanvas.foreach(colorFunction)
   }
