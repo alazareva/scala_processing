@@ -28,15 +28,18 @@ object Fractals {
     rec(c, 0)
   }
 
-  def mandelbrot(maxIterations: Int = 1000, escape: Int = 2)(p: Point): Int = {
-    @tailrec
-    def rec(pt: Point, ip: Point, count: Int): Int = {
-      if (((pt.x * pt.x + pt.y * pt.y) >= escape) || count >= maxIterations) count
-      else rec(Point(pt.x * pt.x - pt.y * pt.y + ip.x, 2 * pt.x * pt.y + ip.y), ip, count + 1)
-    }
 
-    rec(Point(0, 0), p, 0)
+  def mandelbrot(maxIterations: Int = 1000, escape: Int = 2)(
+    initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): Int =  {
+
+    @tailrec
+    def rec(z1: ComplexNumber, iteration: Int): Int = {
+      if (z1.abs >= escape || iteration >= maxIterations) iteration
+      else rec(f(z1, initialZ), iteration + 1)
+    }
+    rec(ComplexNumber(0, 0), 0)
   }
+
 
   def julia(initialZ: ComplexNumber,
             f: ComplexNumber => ComplexNumber,
