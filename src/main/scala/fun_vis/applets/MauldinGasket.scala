@@ -6,6 +6,7 @@ import fun_vis.functions.Fractals
 import fun_vis._
 import processing.core.{PApplet, PConstants}
 
+// Based on work by Paul Bourke http://paulbourke.net/fractals/mauldin/
 
 class MauldinGasket extends PApplet {
 
