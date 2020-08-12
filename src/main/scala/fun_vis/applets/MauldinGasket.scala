@@ -5,6 +5,8 @@ import fun_vis.Types.ColorImage
 import fun_vis.functions.Fractals
 import fun_vis._
 import processing.core.{PApplet, PConstants}
+import processing.core.PApplet.map
+
 
 // Based on work by Paul Bourke http://paulbourke.net/fractals/mauldin/
 
@@ -14,7 +16,7 @@ class MauldinGasket extends PApplet {
 
 
   val pCanvas = ProcessingCanvas(
-    Canvas(500, 500) / 5,
+    Canvas(500, 500) * 2,
     CanvasExtent,
     this,
   )
@@ -36,9 +38,11 @@ class MauldinGasket extends PApplet {
 
     val colorFunction: ColorImage = p => {
       val offset = pCanvas.canvas.width * p.y.toInt + p.x.toInt
-      val s = (Math.log(image(offset) + 1)/logMax).toFloat * 60
-      val b = (100 - Math.log(image(offset) + 1)/logMax).toFloat * 100
-      HSBColor(340, s, b)
+      val v = (Math.log(image(offset) + 1)/logMax).toFloat
+      val s = v *  70
+      val b = (100 - v) * 100
+      val h = map(p.x.toFloat, 0, pCanvas.canvas.width, 360, 0)
+      HSBColor(h, s, b)
     }
     pCanvas.foreach(colorFunction)
   }

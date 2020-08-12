@@ -64,7 +64,7 @@ object Fractals {
 
     def iterate(): Unit = {
 
-      val choice = Math.abs(util.Random.nextInt) % 3
+      val choice = Math.abs(util.Random.nextInt * 0.5f).toInt % 3
 
       x(1) = -.5f * x(0) - c * y(0)
       y(1) = -.5f * y(0) + c * x(0)
