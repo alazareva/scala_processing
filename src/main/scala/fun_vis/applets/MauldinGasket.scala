@@ -16,7 +16,7 @@ class MauldinGasket extends PApplet {
 
 
   val pCanvas = ProcessingCanvas(
-    Canvas(500, 500) * 2,
+    Canvas(500, 500) / 2,
     CanvasExtent,
     this,
   )
@@ -33,16 +33,13 @@ class MauldinGasket extends PApplet {
 
   override def draw(): Unit = {
     val image = Fractals.mauldinGasket(pCanvas.canvas.width, pCanvas.canvas.height)
-    val maxLuma = image.max
-    val logMax = Math.log(maxLuma + 1)
+    val logMax = Math.log(image.max + 1)
 
     val colorFunction: ColorImage = p => {
       val offset = pCanvas.canvas.width * p.y.toInt + p.x.toInt
       val v = (Math.log(image(offset) + 1)/logMax).toFloat
-      val s = v *  70
-      val b = (100 - v) * 100
       val h = map(p.x.toFloat, 0, pCanvas.canvas.width, 360, 0)
-      HSBColor(h, s, b)
+      HSBColor(h, 50, v * 90)
     }
     pCanvas.foreach(colorFunction)
   }
