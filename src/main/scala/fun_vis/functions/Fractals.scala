@@ -42,23 +42,24 @@ object Fractals {
   }
 
   // ported from: https://github.com/trevlovett/mauldin-gasket/blob/master/mauldin.c
-  def mauldinGasket(xSize: Int, ySize: Int, maxIterations: Long = 2000000000L): Array[Double] = {
+  def mauldinGasket(xSize: Int, ySize: Int, maxIterations: Long = 2000000000L): List[Double] = {
     val image: Array[Double] = Array.fill(xSize *  ySize){0}
     val sqrt3 = 1.73205081f
     val sqrrt1p5 = 1.22474487f
     val x = Array(0.0, 0.0, 0.0)
     val y = Array(0.0, 0.0, 0.0)
     val c = 0.866025404f
+    val scale = xSize * 0.5
 
     x(0) = Math.random()
     y(0) = Math.random()
 
 
     def plot(x: Double, y: Double, luma: Double): Unit = {
-      val ix = (x * xSize).toInt
-      val iy = (y * ySize).toInt
-      if (ix >= 0 && iy >= 0 && ix < xSize && iy < ySize) {
-        image(xSize * iy + ix) += List(luma, 1.0).max.toInt
+      val ix = (x * scale + xSize * 0.5).toInt
+      val iy = (y * scale + xSize * 0.5).toInt
+      if (ix >= 0 && iy >= 0 && ix < xSize && iy < ySize && luma > 0) {
+        image(xSize * iy + ix) += luma
       }
     }
 
@@ -88,7 +89,10 @@ object Fractals {
 
     (0 to 100).foreach(_ => iterate())
 
-    (100l to maxIterations).foreach{_ =>
+    var i = 0L
+
+    while (i < maxIterations){
+      if (i % 1000000000 == 0) println(i)
       iterate()
       val fx = x(0) - x(0).toInt
       val fy = y(0) - y(0).toInt
@@ -101,8 +105,9 @@ object Fractals {
       plot(x(0) + 1, y(0), btr)
       plot(x(0), y(0) + 1, bbl)
       plot(x(0) + 1, y(0) + 1, bbr)
+      i += 1
     }
-    image
+    image.toList
   }
 
 
