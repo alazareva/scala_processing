@@ -25,7 +25,7 @@ class MandelbrotOrbits extends PApplet {
   }
 
   val pCanvas = ProcessingCanvas(
-    Canvas(700, 700) * 2,
+    Canvas(700, 700) / 2,
     CustomExtent(1.5f, 1.5f) + Vector(-0.6f, 0),
     this,
   )
@@ -39,13 +39,12 @@ class MandelbrotOrbits extends PApplet {
     val orbitMax = 1500
     val hue = 240
     val colorFunction: ColorImage = p => {
-      val f = (c1: ComplexNumber, c2: ComplexNumber) => (c1 * c1) + c2
+      val f = (c1: ComplexNumber, c2: ComplexNumber) => c1.pow(2) + c2
       val (escaped, orbit) = Fractals.mandelbrotOrbitSize(maxIterations=maxIterations)(pointToComplexNumber(p), f)
       if (escaped) HSBColor(hue, 50, map(orbit, 0, 100, 0, 360))
       else HSBColor(hue, 50, map(orbit, 0, orbitMax, 40, 80))
     }
     pCanvas.foreach(colorFunction)
-    saveFrame("orbits_blue.jpeg")
   }
 }
 
