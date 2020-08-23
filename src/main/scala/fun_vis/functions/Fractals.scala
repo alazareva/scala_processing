@@ -1,6 +1,7 @@
 package fun_vis.functions
 
 import fun_vis.Point
+
 import scala.util
 import fun_vis.utils.ComplexNumber
 
@@ -33,12 +34,38 @@ object Fractals {
   def mandelbrot(maxIterations: Int = 1000, escape: Int = 2)(
     initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): Int =  {
 
+    mandelbrotIterationResult(maxIterations, escape)(initialZ, f).iterations
+  }
+
+  def mandelbrotIterationResult(maxIterations: Int = 1000, escape: Int = 2)(
+    initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): IterationResult =  {
+
     @tailrec
-    def rec(z1: ComplexNumber, iteration: Int): Int = {
-      if (z1.abs >= escape || iteration >= maxIterations) iteration
+    def rec(z1: ComplexNumber, iteration: Int): IterationResult = {
+      if (z1.abs >= escape || iteration >= maxIterations) IterationResult(iteration, z1)
       else rec(f(z1, initialZ), iteration + 1)
     }
     rec(ComplexNumber(0, 0), 0)
+  }
+
+  def mandelbrotOrbitTrap(maxIterations: Int = 1000, trapCenter: ComplexNumber)(
+    initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): Float = {
+    @tailrec
+    def rec(z1: ComplexNumber, iteration: Int, distSoFar: Float): Float = {
+      if (iteration >= maxIterations) distSoFar
+      else rec(f(z1, initialZ), iteration + 1, Math.min(distSoFar, z1.dist(trapCenter).toFloat))
+    }
+    rec(ComplexNumber(0, 0), 0, Float.MaxValue)
+  }
+
+  def mandelbrotOrbitSize(maxIterations: Int = 1000, escape: Int = 2)(
+    initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): (Boolean, Float) = {
+    @tailrec
+    def rec(z1: ComplexNumber, iteration: Int, distSoFar: Float): (Boolean, Float) = {
+      if (iteration >= maxIterations || z1.abs >= escape) (z1.abs >= escape, distSoFar)
+      else rec(f(z1, initialZ), iteration + 1, Math.max(distSoFar, z1.dist(initialZ).toFloat))
+    }
+    rec(ComplexNumber(0, 0), 0, 0)
   }
 
   // ported from: https://github.com/trevlovett/mauldin-gasket/blob/master/mauldin.c
@@ -117,9 +144,19 @@ object Fractals {
             maxZ: Int=10,
            ): Int =  {
 
+    juliaIterationResult(initialZ, f, maxIterations, maxZ).iterations
+  }
+
+
+  def juliaIterationResult(initialZ: ComplexNumber,
+            f: ComplexNumber => ComplexNumber,
+            maxIterations: Int=1000,
+            maxZ: Int=10,
+           ): IterationResult =  {
+
     @tailrec
-    def rec(z: ComplexNumber, iteration: Int): Int = {
-      if (z.abs >= maxZ || iteration > maxIterations) iteration
+    def rec(z: ComplexNumber, iteration: Int): IterationResult = {
+      if (z.abs >= maxZ || iteration > maxIterations) IterationResult(iteration, z)
       else rec(f(z), iteration + 1)
     }
     rec(initialZ, 0)
