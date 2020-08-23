@@ -36,7 +36,7 @@ can start to create complex animated images.
 
 [BinaryDecomposition](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/BinaryDecomposition.scala)
 
-![example1](https://github.com/alazareva/scala_processing/blob/master/images/binary_decomp.gif)
+![binary](https://github.com/alazareva/scala_processing/blob/master/images/binary_decomp.jpeg)
 
 
 [RainbowMandelbrot](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/RainbowMandelbrot.scala)
