@@ -62,11 +62,13 @@ object Fractals {
     initialZ: ComplexNumber, f: (ComplexNumber, ComplexNumber) => ComplexNumber): (Boolean, Float) = {
     @tailrec
     def rec(z1: ComplexNumber, iteration: Int, distSoFar: Float): (Boolean, Float) = {
+      val nextZ = f(z1, initialZ)
       if (iteration >= maxIterations || z1.abs >= escape) (z1.abs >= escape, distSoFar)
-      else rec(f(z1, initialZ), iteration + 1, Math.max(distSoFar, z1.dist(initialZ).toFloat))
+      else rec(nextZ, iteration + 1, distSoFar + z1.dist(nextZ).toFloat)
     }
     rec(ComplexNumber(0, 0), 0, 0)
   }
+
 
   // ported from: https://github.com/trevlovett/mauldin-gasket/blob/master/mauldin.c
   def mauldinGasket(xSize: Int, ySize: Int, maxIterations: Long = 2000000000L): List[Double] = {

@@ -14,18 +14,19 @@ import processing.core.{PApplet, PConstants}
 import processing.core.PApplet.map
 
 
-class BinaryDecomposition extends PApplet {
+class MandelbrotOrbits extends PApplet {
 
   implicit val colorMode: ColorMode = HSB
 
   override def setup(): Unit = {
     colorMode.set(this)
     background(360)
+    noLoop()
   }
 
   val pCanvas = ProcessingCanvas(
-    Canvas(500, 500) / 3,
-    CustomExtent(1.5f, 1.5f),// + Vector(-0.6f, 0),
+    Canvas(700, 700) * 2,
+    CustomExtent(1.5f, 1.5f) + Vector(-0.6f, 0),
     this,
   )
 
@@ -35,30 +36,24 @@ class BinaryDecomposition extends PApplet {
 
   override def draw(): Unit = {
     val maxIterations = 1000
-    val orbitMax = 2.0f
+    val orbitMax = 1500
+    val hue = 240
     val colorFunction: ColorImage = p => {
-      /*
       val f = (c1: ComplexNumber, c2: ComplexNumber) => (c1 * c1) + c2
       val (escaped, orbit) = Fractals.mandelbrotOrbitSize(maxIterations=maxIterations)(pointToComplexNumber(p), f)
-      if (escaped) HSBColor(0, 0, 0)
-      else {
-        val hue = map(orbit, 0, orbitMax, 0, 360)
-        HSBColor(hue, 100, 100)
-      }
-      */
-      val f = (c: ComplexNumber) => c.pow(2) + ComplexNumber(0.3, 0)
-      val itResult = Fractals.juliaIterationResult(pointToComplexNumber(p), f, maxIterations=maxIterations)
-      selectColor(itResult.c.i > 0, Color.white, Color.black)
+      if (escaped) HSBColor(hue, 50, map(orbit, 0, 100, 0, 360))
+      else HSBColor(hue, 50, map(orbit, 0, orbitMax, 40, 80))
     }
     pCanvas.foreach(colorFunction)
+    saveFrame("orbits_blue.jpeg")
   }
 }
 
-object BinaryDecomposition extends PApplet {
+object MandelbrotOrbits extends PApplet {
 
   val pink = HSBColor(330, 59, 100)
 
   def main(args: Array[String]): Unit = {
-    PApplet.main("fun_vis.applets.BinaryDecomposition")
+    PApplet.main("fun_vis.applets.MandelbrotOrbits")
   }
 }
