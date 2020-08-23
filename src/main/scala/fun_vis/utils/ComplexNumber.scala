@@ -43,6 +43,8 @@ case class ComplexNumber(r: Double, i: Double) {
     ComplexNumber(r * mult.round / mult, i * mult.round / mult)
   }
 
+  def dist(other: ComplexNumber): Double = Math.sqrt(Math.pow(r - other.r, 2) + Math.pow(i - other.i, 2))
+
   val isInfinity: Boolean = abs.isInfinity
 
   val isNan: Boolean = abs.isNaN

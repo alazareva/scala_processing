@@ -31,6 +31,8 @@ object PointUtils {
 
   def pointToComplexNumber(p: Point): ComplexNumber = ComplexNumber(p.x, p.y)
 
+  def complexNumberToPoint(z: ComplexNumber): Point = Point(z.r, z.i)
+
   def translatePoint(v: Vector): TransformPoint = p => Point(p.x + v.x, p.y + v.y)
 
   def scalePoint(v: Vector): TransformPoint = p => Point(p.x * v.x, p.y * v.y)

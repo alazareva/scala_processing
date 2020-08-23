@@ -19,6 +19,10 @@ can start to create complex animated images.
 
 ![example4](https://github.com/alazareva/scala_processing/blob/master/images/phoenix-1.png)
 
+[MandelbrotOrbits](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/MandelbrotOrbits.scala)
+
+![example4](https://github.com/alazareva/scala_processing/blob/master/images/orbits.jpeg)
+
 
 [JuliaSet](https://github.com/alazareva/scala_processing/blob/master/src/main/scala/fun_vis/applets/JuliaSet.scala)
 
